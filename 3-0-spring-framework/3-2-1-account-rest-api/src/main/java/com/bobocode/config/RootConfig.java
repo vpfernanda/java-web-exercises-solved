@@ -1,5 +1,8 @@
 package com.bobocode.config;
 
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -10,5 +13,14 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * todo: 2. Enable component scanning for all packages in "com.bobocode" using annotation property "basePackages"
  * todo: 3. Exclude web related config and beans (ignore @{@link Controller}, ignore {@link EnableWebMvc})
  */
+
+@Configuration
+@ComponentScan(
+        basePackages = "com.bobocode", // Escaneia todos os pacotes dentro de com.bobocode
+        excludeFilters = {
+                @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class), // Ignora classes com @Controller
+                @ComponentScan.Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) // Ignora @EnableWebMvc
+        }
+)
 public class RootConfig {
 }
